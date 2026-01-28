@@ -13,3 +13,4 @@
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
