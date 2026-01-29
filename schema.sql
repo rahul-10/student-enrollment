@@ -83,3 +83,20 @@ CREATE TRIGGER trg_prevent_timetable_clash
 BEFORE INSERT ON student_courses
 FOR EACH ROW
 EXECUTE FUNCTION prevent_timetable_clash();
+
+
+
+-- =============== Seed Data =============== --
+
+INSERT INTO colleges (name) VALUES ('IIIT Gwalior');
+
+INSERT INTO students (name, college_id)
+VALUES ('Rahul', 1);
+
+INSERT INTO courses (code, college_id)
+VALUES ('CS101', 1), ('MA204', 1);
+
+INSERT INTO course_timetables (course_id, day_of_week, start_time, end_time)
+VALUES
+(1, 'Monday', '09:00', '10:00'),
+(2, 'Monday', '10:00', '11:00');

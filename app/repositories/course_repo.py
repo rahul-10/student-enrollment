@@ -21,3 +21,11 @@ def get_courses_by_ids_and_college_id(
         )
         .all()
     )
+
+
+def get_course_by_id(db: Session, course_id: int):
+    return (
+        db.query(Course)
+        .filter(Course.id == course_id)
+        .one_or_none()
+    )

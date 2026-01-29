@@ -1,18 +1,6 @@
 from sqlalchemy.orm import Session,  aliased
 from app.models import CourseTimetable, StudentCourse
 
-def check_timetable_clash(db: Session, student_id: int, course_ids: list[int]):
-    clash_exists = db.query(StudentCourse).join(
-        CourseTimetable,
-        StudentCourse.course_id == CourseTimetable.course_id
-    ).filter(
-        StudentCourse.student_id == student_id,
-        CourseTimetable.course_id.in_(course_ids)
-    ).first()
-
-    if clash_exists:
-        raise ValueError("Timetable clash detected")
-
 def create_enrollments(db: Session, student_id: int, course_ids: list[int]):
     enrollments = [
         StudentCourse(student_id=student_id, course_id=cid)
@@ -20,7 +8,6 @@ def create_enrollments(db: Session, student_id: int, course_ids: list[int]):
     ]
     db.add_all(enrollments)
     db.commit()
-
 
 def has_timetable_clash(
     db: Session,
